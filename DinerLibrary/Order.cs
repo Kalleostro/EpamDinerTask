@@ -9,17 +9,17 @@ namespace DinerLibrary
         public DateTime Date { get; set; }
         public bool IsReady { get; set; }
         public List<Dish> Dishes = new List<Dish>();
-        public Client Client { get; set; }
+        public int OrderId { get; set; }
         private float summaryPrice;
         /// <summary>
         /// Generate new order
         /// </summary>
         /// <param name="date"></param>
         /// <param name="client"></param>
-        public Order(DateTime date, Client client)
+        public Order(DateTime date, int id)
         {
             summaryPrice = 0;
-            Client = client;
+            OrderId = id;
             Date = date;
         }
         /// <summary>
