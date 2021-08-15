@@ -5,12 +5,20 @@ namespace DishesLibrary
 {
     public class Dish
     {
-        public int Cost { get; set; }
+        /// <summary>
+        /// Dish price
+        /// </summary>
+        public float Price { get; set; }
+        /// <summary>
+        /// Dish recipe
+        /// </summary>
         public Recipe Recipe { get; set; }
-        
-        public Dish(Recipe recipe)
+        public string Name { get; set; }
+        public Dish(Recipe recipe, string name, int overPrice)
         {
-            
+            Name = name;
+            Price = recipe.Price + overPrice;
+            Recipe = recipe;
         }
     }
 }
