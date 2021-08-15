@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinerLibrary", "DinerLibrary\DinerLibrary.csproj", "{9BD4E244-5704-4AFC-AC65-487B8DB817A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DishesLibrary", "DishesLibrary\DishesLibrary.csproj", "{F67DD5F8-F3BA-4209-8B01-F238262972B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{9BD4E244-5704-4AFC-AC65-487B8DB817A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BD4E244-5704-4AFC-AC65-487B8DB817A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BD4E244-5704-4AFC-AC65-487B8DB817A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F67DD5F8-F3BA-4209-8B01-F238262972B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F67DD5F8-F3BA-4209-8B01-F238262972B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F67DD5F8-F3BA-4209-8B01-F238262972B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F67DD5F8-F3BA-4209-8B01-F238262972B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

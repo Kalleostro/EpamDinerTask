@@ -5,7 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DishesLibrary\DishesLibrary.csproj" />
+      <Folder Include="Processes" />
     </ItemGroup>
 
 </Project>
