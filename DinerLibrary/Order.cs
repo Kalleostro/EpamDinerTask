@@ -29,6 +29,7 @@ namespace DinerLibrary
         public void AddDish(Dish dish)
         {
             Dishes.Add(dish);
+            CalculatePrice();
         }
         /// <summary>
         /// Calculate overall price

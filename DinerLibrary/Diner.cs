@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DishesLibrary;
 using DishesLibrary.Ingridients;
 
@@ -9,16 +10,19 @@ namespace DinerLibrary
     [Serializable]
     public class Diner
     {
-        public List<Order> WaitingOrders = new List<Order>();
-        public List<Order> ProcessingOrders;
-        public List<Order> AllOrders = new List<Order>();
-        public List<Ingredient> Ingredients = new List<Ingredient>();
+        public List<Order> WaitingOrders { get; set; }
+        public List<Order> ProcessingOrders { get; set; }
+        public List<Order> AllOrders { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
         public Chief Chief { get; set; }
 
-        public Diner(int capacity)
+        public Diner(int capacity, int chiefId)
         {
+            WaitingOrders = new List<Order>();
+            AllOrders = new List<Order>();
+            Ingredients = new List<Ingredient>();
             ProcessingOrders = new List<Order>(capacity);
-            Chief = new Chief(1);
+            Chief = new Chief(chiefId);
             Ingredients.Add(new Pepper(21, 10));
             Ingredients.Add(new Pepper(21, 10));
             Ingredients.Add(new Salt(21, 15));
@@ -38,7 +42,7 @@ namespace DinerLibrary
 
         public List<Order> GetOrdersByDate(DateTime startDate, DateTime endDate)
         {
-            return WaitingOrders.FindAll(x => x.Date > startDate && x.Date < endDate);
+            return AllOrders.FindAll(x => x.Date > startDate && x.Date < endDate);
         }
 
         public Dictionary<Ingredient, int> GetMostPopularIngredients()
@@ -59,6 +63,33 @@ namespace DinerLibrary
             return ingredients;
         }
 
+        public void TakeOrder(DateTime date, int id, List<Dish> dishes)
+        {
+            var order = new Order(date, id);
+            foreach (var dish in dishes)
+            {
+                order.AddDish(dish);
+            }
+            WaitingOrders.Add(order);
+        }
+
+        public void ProcessOrders()
+        {
+            while (ProcessingOrders.Count != 5)
+            {
+                ProcessingOrders.Add(WaitingOrders.First());
+                WaitingOrders.Remove(WaitingOrders.First());
+            }
+        }
+
+        public void CompleteCurrentOrders()
+        {
+            while (ProcessingOrders.Count > 0)
+            {
+                AllOrders.Add(ProcessingOrders.First());
+                ProcessingOrders.Remove(ProcessingOrders.First());
+            }
+        }
         public int GetCurrentCapacity()
         {
             return ProcessingOrders.Capacity - ProcessingOrders.Count;
