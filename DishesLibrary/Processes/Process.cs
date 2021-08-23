@@ -15,6 +15,6 @@ namespace DishesLibrary.Processes
         /// <summary>
         /// Type of process
         /// </summary>
-        public Type ProcessType { get; protected set; }
+        public string ProcessType { get; protected set; }
     }
 }

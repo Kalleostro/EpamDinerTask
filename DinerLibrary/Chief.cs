@@ -20,7 +20,6 @@ namespace DinerLibrary
             {
               newRecipe.AddIngredient(property.Key, property.Value);  
             }
-
             return newRecipe;
         }
     }

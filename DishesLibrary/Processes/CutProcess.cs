@@ -13,7 +13,7 @@ namespace DishesLibrary.Processes
         {
             Price = price;
             Time = time;
-            ProcessType = typeof(ICuttable<>);
+            ProcessType = typeof(ICuttable<>).Name;
         }
     }
 }

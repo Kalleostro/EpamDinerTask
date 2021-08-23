@@ -45,7 +45,7 @@ namespace DinerLibrary
             return AllOrders.FindAll(x => x.Date > startDate && x.Date < endDate);
         }
 
-        public Dictionary<Ingredient, int> GetMostPopularIngredients()
+        public Ingredient GetMostPopularIngredient()
         {
             var ingredients = new Dictionary<Ingredient, int>();
             foreach (var order in AllOrders)
@@ -60,7 +60,21 @@ namespace DinerLibrary
                     }
                 }
             }
-            return ingredients;
+
+            int maxValue = 0;
+            foreach (var ingredient in ingredients)
+            {
+                if (ingredient.Value > maxValue)
+                    maxValue = ingredient.Value;
+            }
+
+            Ingredient mostPopular = null;
+            foreach (var ingredient in ingredients)
+            {
+                if (ingredient.Value == maxValue)
+                    mostPopular = ingredient.Key;
+            }
+            return mostPopular;
         }
 
         public void TakeOrder(DateTime date, int id, List<Dish> dishes)
@@ -75,10 +89,14 @@ namespace DinerLibrary
 
         public void ProcessOrders()
         {
-            while (ProcessingOrders.Count != 5)
+            while (WaitingOrders.Count !=0)
             {
-                ProcessingOrders.Add(WaitingOrders.First());
-                WaitingOrders.Remove(WaitingOrders.First());
+                if (ProcessingOrders.Count != 5)
+                {
+                    ProcessingOrders.Add(WaitingOrders.First());
+                    WaitingOrders.Remove(WaitingOrders.First());
+                }
+                else return;
             }
         }
 

@@ -27,19 +27,56 @@ namespace DinerTests
         [Test]
         public void OrdersByDate()
         {
-            // var date1 = new DateTime(20,11,15);
-            // var date2 = new DateTime(20,11,25);
-            // var diner = new Diner(5);
-            // Assert.AreEqual(4,diner.GetOrdersByDate(date1, date2).Count);
             var diner = new Diner(5,1);
+            List<Dish> dishes = new List<Dish>();
             var recipe = new Dictionary<Ingredient, Process>();
             recipe.Add(new Sausage(6, 50), new CutProcess(30, 10));
             recipe.Add(new Sausage(6, 50), new AddProcess(5, 1));
             recipe.Add(new Tomato(2, 35), new AddProcess(5, 1));
             recipe.Add(new Tomato(2, 35), new CutProcess(20, 5));
             var dishRecipe = diner.Chief.MakeNewRecipe("BakedSausages", recipe);
-            JSerializer.WriteJSON(diner);
-            Assert.AreEqual(true,true);
+            dishes.Add(new Dish(dishRecipe,"Sausages with tomatoes", 40));
+            dishes.Add(new Dish(dishRecipe,"Tomatoes with sausages", 60));
+            diner.TakeOrder(new DateTime(2020,10,12),1,dishes);
+            diner.ProcessOrders();
+            diner.CompleteCurrentOrders();
+            Assert.AreEqual(1, diner.GetOrdersByDate(new DateTime(2019,8,10),new DateTime(2021,8,18)).Count);
         }
-    }
+        [Test]
+        public void CurrentCapacity()
+        {
+            var diner = new Diner(5,1);
+            List<Dish> dishes = new List<Dish>();
+            var recipe = new Dictionary<Ingredient, Process>();
+            recipe.Add(new Sausage(6, 50), new CutProcess(30, 10));
+            recipe.Add(new Sausage(6, 50), new AddProcess(5, 1));
+            recipe.Add(new Tomato(2, 35), new AddProcess(5, 1));
+            recipe.Add(new Tomato(2, 35), new CutProcess(20, 5));
+            var dishRecipe = diner.Chief.MakeNewRecipe("BakedSausages", recipe);
+            dishes.Add(new Dish(dishRecipe,"Sausages with tomatoes", 40));
+            dishes.Add(new Dish(dishRecipe,"Tomatoes with sausages", 60));
+            diner.TakeOrder(new DateTime(2020,10,12),1,dishes);
+            diner.ProcessOrders();
+            Assert.AreEqual(4, diner.GetCurrentCapacity());
+        }
+        [Test]
+        public void PopularIngredients()
+        {
+            var diner = new Diner(5,1);
+            List<Dish> dishes = new List<Dish>();
+            var recipe = new Dictionary<Ingredient, Process>();
+            recipe.Add(new Sausage(6, 50), new CutProcess(30, 10));
+            recipe.Add(new Sausage(6, 50), new AddProcess(5, 1));
+            recipe.Add(new Tomato(2, 35), new AddProcess(5, 1));
+            recipe.Add(new Tomato(2, 35), new CutProcess(20, 5));
+            recipe.Add(new Sausage(6, 50), new AddProcess(5, 1));
+            var dishRecipe = diner.Chief.MakeNewRecipe("BakedSausages", recipe);
+            dishes.Add(new Dish(dishRecipe,"Sausages with tomatoes", 40));
+            dishes.Add(new Dish(dishRecipe,"Tomatoes with sausages", 60));
+            diner.TakeOrder(new DateTime(2020,10,12),1,dishes);
+            diner.ProcessOrders();
+            diner.CompleteCurrentOrders();
+            Assert.AreEqual(new Sausage(6, 50).GetType(), diner.GetMostPopularIngredient().GetType());
+        }
+    }  
 } 

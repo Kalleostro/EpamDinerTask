@@ -16,7 +16,7 @@ namespace DishesLibrary
         /// <summary>
         /// ingredients
         /// </summary>
-        public Dictionary<Ingredient, Process> Ingredients { get; set; }
+        public Dictionary<Ingredient, Process> Ingredients = new Dictionary<Ingredient, Process>();
         public string RecipeName { get; set; }
         /// <summary>
         /// Create recipe
@@ -51,7 +51,7 @@ namespace DishesLibrary
         {
             foreach (var type in ingredient.GetType().GetInterfaces())
             {
-                if (type == process.ProcessType)
+                if (type.Name == process.ProcessType)
                 {
                     Ingredients.Add(ingredient, process);
                     CalculateTimeAndPrice();
